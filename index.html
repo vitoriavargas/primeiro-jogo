@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Jogo</title>
+    <script>
+        var numerosSorteados = [];
+        var chances = 3;
+
+        function sortearNumeros() {
+            while (numerosSorteados.length < 3) {
+                var numero = Math.floor(Math.random() * 10) + 1;
+                if (!numerosSorteados.includes(numero)) {
+                    numerosSorteados.push(numero);
+                }
+            }
+        }
+
+        function jogar() {
+            sortearNumeros();
+            chances = 3;
+            fazerPalpite();
+        }
+
+        function fazerPalpite() {
+            var palpite = prompt("Digite seu palpite (de 1 a 10):");
+            palpite = parseInt(palpite);
+
+            if (isNaN(palpite) || palpite < 1 || palpite > 10) {
+                alert("Por favor, digite um número válido de 1 a 10.");
+                fazerPalpite();
+                return;
+            }
+
+            if (numerosSorteados.includes(palpite)) {
+                alert("VOCÊ ACERTOU!!!");
+            } else {
+                chances--;
+                if (chances > 0) {
+                    alert("Você errou, mas não desista. Você ainda tem " + chances + " chance(s).");
+                    fazerPalpite();
+                } else {
+                    alert("Suas chances acabaram. O número(s) sorteado(s) era(m): " + numerosSorteados.join(", "));
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Jogo da Adivinhação</h1>
+    <p>Tente adivinhar o número sorteado de 1 a 10. Você tem 3 chances.</p>
+    <button onclick="jogar()">Jogar</button>
+</body>
+</html>
